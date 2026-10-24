@@ -89,8 +89,9 @@ export default function Hero() {
             background: 'var(--bg-tertiary)', 
           }}>
             
+            {/* AUTO-FETCHED IMAGE */}
             <img
-              src="/images/shrine.avif"
+              src="https://images.unsplash.com/photo-1564507004663-b6dfb3c824d5?q=80&w=1000&auto=format&fit=crop"
               alt="Community shrine"
               loading="eager"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}

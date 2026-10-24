@@ -3,9 +3,9 @@ import SectionTitle from '../common/SectionTitle';
 import { ArrowRight } from 'lucide-react';
 
 const halls = [
-  { name: 'Khoja Masjid Hall', img: '/images/KhojaMasjid.jpg', capacity: '500+ Guests', feature: 'Majlis & Congregations' },
-  { name: 'Kearsbaugh Hall', img: '/images/Kearsbaughall.jpg', capacity: '300 Guests', feature: 'Banquets & Receptions' },
-  { name: 'Kabrastan Grounds', img: '/images/Kabrastan.jpg', capacity: 'Outdoor', feature: 'Heritage & Exhibitions' },
+  { name: 'Khoja Masjid Hall', img: 'https://images.unsplash.com/photo-1585036156171-384164a8c675?q=80&w=800&auto=format&fit=crop', capacity: '500+ Guests', feature: 'Majlis & Congregations' },
+  { name: 'Kearsbaugh Hall', img: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=800&auto=format&fit=crop', capacity: '300 Guests', feature: 'Banquets & Receptions' },
+  { name: 'Kabrastan Grounds', img: 'https://images.unsplash.com/photo-1590059346617-7c3423e447e3?q=80&w=800&auto=format&fit=crop', capacity: 'Outdoor', feature: 'Heritage & Exhibitions' },
 ];
 
 export default function VenueShowcase() {
@@ -50,6 +50,7 @@ export default function VenueShowcase() {
                 <img 
                   src={hall.img} 
                   alt={hall.name} 
+                  loading="lazy"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
                   onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
                   onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}

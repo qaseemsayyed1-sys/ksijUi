@@ -10,7 +10,7 @@ const events = [
     location: 'DONGRI, MUMBAI',
     performance: 'Congregational Commemoration',
     access: 'LIMITED',
-    image: '/images/KhojaMasjid.avif'
+    image: 'https://images.unsplash.com/photo-1585036156171-384164a8c675?q=80&w=400&auto=format&fit=crop'
   },
   {
     date: '28 OCT 2026',
@@ -18,7 +18,7 @@ const events = [
     location: 'BANDRA, MUMBAI',
     performance: 'Annual Festive Reception',
     access: 'RESERVE',
-    image: '/images/Kearsbaughall.avif'
+    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=400&auto=format&fit=crop'
   },
   {
     date: '11 NOV 2026',
@@ -26,7 +26,7 @@ const events = [
     location: 'DONGRI, MUMBAI',
     performance: 'Scholarly Majlis & Assembly',
     access: 'AVAILABLE',
-    image: '/images/shrine.avif'
+    image: 'https://images.unsplash.com/photo-1564507004663-b6dfb3c824d5?q=80&w=400&auto=format&fit=crop'
   },
   {
     date: '02 DEC 2026',
@@ -34,7 +34,7 @@ const events = [
     location: 'MAZGAON, MUMBAI',
     performance: 'Cultural Heritage Exhibition',
     access: 'SOLD OUT',
-    image: '/images/Kabrastan.avif'
+    image: 'https://images.unsplash.com/photo-1590059346617-7c3423e447e3?q=80&w=400&auto=format&fit=crop'
   }
 ];
 
@@ -212,7 +212,7 @@ export default function VenueBooking() {
                 background: 'var(--bg-tertiary)', borderRadius: '50%',
                 width: '36px', height: '36px', display: 'flex',
                 alignItems: 'center', justifyContent: 'center',
-                color: 'var(--text-primary)', transition: 'var(--transition)', border: 'none'
+                color: 'var(--text-primary)', transition: 'var(--transition)', border: 'none', cursor: 'pointer'
               }}
               onMouseEnter={e => e.currentTarget.style.background = 'var(--border-color)'}
               onMouseLeave={e => e.currentTarget.style.background = 'var(--bg-tertiary)'}
