@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 import SectionTitle from '../common/SectionTitle';
-import { Calendar, X, CheckCircle2, MapPin, Users, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Calendar, X, CheckCircle2, MapPin, ArrowRight, ArrowLeft, ShieldCheck, Download } from 'lucide-react';
 
 const events = [
   {
@@ -61,13 +61,35 @@ export default function VenueBooking() {
   const { ref, isVisible } = useScrollAnimation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [step, setStep] = useState(1);
+  const [isConfirmed, setIsConfirmed] = useState(false); // Naya state success ke liye
+  
   const [selectedType, setSelectedType] = useState('');
   const [selectedVenue, setSelectedVenue] = useState('');
+  const [guestCount, setGuestCount] = useState('');
+  const [eventDate, setEventDate] = useState('');
 
   const openModal = (initialVenue = '') => {
     setSelectedVenue(initialVenue);
     setStep(initialVenue ? 2 : 1);
     setIsModalOpen(true);
+    setIsConfirmed(false);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => {
+      setStep(1);
+      setIsConfirmed(false);
+      setSelectedType('');
+      setSelectedVenue('');
+      setGuestCount('');
+      setEventDate('');
+    }, 300);
+  };
+
+  const handleBookingSubmit = (e) => {
+    e.preventDefault();
+    setIsConfirmed(true);
   };
 
   return (
@@ -129,123 +151,168 @@ export default function VenueBooking() {
         <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)', padding: '20px' }}>
           <div style={{ background: 'var(--bg-secondary)', width: '100%', maxWidth: '900px', borderRadius: '24px', boxShadow: 'var(--shadow-lg)', display: 'flex', flexDirection: 'column', maxHeight: '90vh', overflow: 'hidden', animation: 'fadeUp 0.3s ease-out' }}>
             
-            {/* Modal Header & Tabs */}
-            <div style={{ display: 'flex', borderBottom: '1px solid var(--border-color)', background: 'var(--bg-primary)' }}>
-              <div style={{ flex: 1, padding: '20px', textAlign: 'center', borderRight: '1px solid var(--border-color)', color: 'var(--accent-gold)', fontWeight: 600, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', borderBottom: '3px solid var(--accent-gold)' }}>
-                <Calendar size={18} /> 1. Venue & Slot Reservation
-              </div>
-              <div style={{ flex: 1, padding: '20px', textAlign: 'center', color: 'var(--text-muted)', fontWeight: 500, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', opacity: 0.5 }}>
-                <CheckCircle2 size={18} /> 2. Confirm Details
-              </div>
-              <button onClick={() => setIsModalOpen(false)} style={{ padding: '0 24px', background: 'transparent', border: 'none', borderLeft: '1px solid var(--border-color)', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                <X size={24} />
-              </button>
-            </div>
-
-            <div style={{ padding: '32px', overflowY: 'auto' }}>
-              {step === 1 && (
-                <>
-                  {/* STEP 1: Event Type */}
-                  <div style={{ marginBottom: '32px' }}>
-                    <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>1. Select Event Type & Religious Ritual <span style={{ color: 'red' }}>*</span></h4>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '12px' }}>
-                      {eventTypes.map((type, i) => (
-                        <div key={i} onClick={() => setSelectedType(type.title)} style={{
-                          padding: '16px', borderRadius: '12px', border: `1px solid ${selectedType === type.title ? 'var(--accent-gold)' : 'var(--border-color)'}`,
-                          background: selectedType === type.title ? 'rgba(14, 122, 75, 0.05)' : 'var(--bg-primary)', cursor: 'pointer', transition: 'var(--transition)'
-                        }}>
-                          <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '4px' }}>{type.title}</div>
-                          <div style={{ fontSize: '13px', color: 'var(--text-muted)', textAlign: 'right' }}>{type.urdu}</div>
-                        </div>
-                      ))}
-                    </div>
+            {!isConfirmed ? (
+              <>
+                {/* Modal Header & Tabs */}
+                <div style={{ display: 'flex', borderBottom: '1px solid var(--border-color)', background: 'var(--bg-primary)' }}>
+                  <div style={{ flex: 1, padding: '20px', textAlign: 'center', borderRight: '1px solid var(--border-color)', color: step === 1 ? 'var(--accent-gold)' : 'var(--text-muted)', fontWeight: 600, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', borderBottom: step === 1 ? '3px solid var(--accent-gold)' : 'none' }}>
+                    <Calendar size={18} /> 1. Venue & Slot
                   </div>
+                  <div style={{ flex: 1, padding: '20px', textAlign: 'center', color: step === 2 ? 'var(--accent-gold)' : 'var(--text-muted)', fontWeight: 600, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', borderBottom: step === 2 ? '3px solid var(--accent-gold)' : 'none' }}>
+                    <ShieldCheck size={18} /> 2. Confirm Details
+                  </div>
+                  <button onClick={closeModal} style={{ padding: '0 24px', background: 'transparent', border: 'none', borderLeft: '1px solid var(--border-color)', color: 'var(--text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                    <X size={24} />
+                  </button>
+                </div>
 
-                  {/* STEP 2: Venue Selection */}
-                  <div style={{ marginBottom: '32px' }}>
-                    <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>2. Select Shia Venue / Mosque / Imambargah <span style={{ color: 'red' }}>*</span></h4>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
-                      {venues.map((v, i) => (
-                        <div key={i} onClick={() => setSelectedVenue(v.name)} style={{
-                          padding: '16px', borderRadius: '12px', border: `2px solid ${selectedVenue === v.name ? 'var(--accent-green)' : 'var(--border-color)'}`,
-                          background: 'var(--bg-primary)', cursor: 'pointer', display: 'flex', gap: '16px', transition: 'var(--transition)'
-                        }}>
-                          <img src={v.image} alt={v.name} style={{ width: '80px', height: '80px', borderRadius: '8px', objectFit: 'cover' }} />
+                <div style={{ padding: '32px', overflowY: 'auto' }}>
+                  {step === 1 && (
+                    <>
+                      <div style={{ marginBottom: '32px' }}>
+                        <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>1. Select Event Type & Religious Ritual <span style={{ color: 'red' }}>*</span></h4>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '12px' }}>
+                          {eventTypes.map((type, i) => (
+                            <div key={i} onClick={() => setSelectedType(type.title)} style={{
+                              padding: '16px', borderRadius: '12px', border: `1px solid ${selectedType === type.title ? 'var(--accent-gold)' : 'var(--border-color)'}`,
+                              background: selectedType === type.title ? 'rgba(14, 122, 75, 0.05)' : 'var(--bg-primary)', cursor: 'pointer', transition: 'var(--transition)'
+                            }}>
+                              <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '4px' }}>{type.title}</div>
+                              <div style={{ fontSize: '13px', color: 'var(--text-muted)', textAlign: 'right' }}>{type.urdu}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 style={{ fontSize: '15px', fontWeight: 700, color: 'var(--text-primary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '16px' }}>2. Select Shia Venue / Mosque / Imambargah <span style={{ color: 'red' }}>*</span></h4>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
+                          {venues.map((v, i) => (
+                            <div key={i} onClick={() => setSelectedVenue(v.name)} style={{
+                              padding: '16px', borderRadius: '12px', border: `2px solid ${selectedVenue === v.name ? 'var(--accent-green)' : 'var(--border-color)'}`,
+                              background: 'var(--bg-primary)', cursor: 'pointer', display: 'flex', gap: '16px', transition: 'var(--transition)'
+                            }}>
+                              <img src={v.image} alt={v.name} style={{ width: '80px', height: '80px', borderRadius: '8px', objectFit: 'cover' }} />
+                              <div>
+                                <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '4px' }}>{v.name}</div>
+                                <div style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '8px' }}><MapPin size={12}/> {v.location} • Capacity: {v.capacity}</div>
+                                <div style={{ fontSize: '13px', color: 'var(--accent-gold)', fontWeight: 500 }}>Suggested: {v.price} per session</div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {step === 2 && (
+                    <div style={{ padding: '20px 0' }}>
+                      <h4 style={{ fontSize: '22px', fontFamily: 'var(--font-display)', fontWeight: 600, marginBottom: '24px', color: 'var(--text-primary)' }}>Review & Confirm Your Reservation</h4>
+                      
+                      {/* BOOKING SUMMARY RECEIPT */}
+                      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '32px' }}>
+                        
+                        {/* Left Side: Form Inputs */}
+                        <form id="bookingForm" onSubmit={handleBookingSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px', background: 'var(--bg-primary)', padding: '24px', borderRadius: '16px', border: '1px solid var(--border-color)' }}>
                           <div>
-                            <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '4px' }}>{v.name}</div>
-                            <div style={{ fontSize: '12px', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '8px' }}><MapPin size={12}/> {v.location} • Capacity: {v.capacity}</div>
-                            <div style={{ fontSize: '13px', color: 'var(--accent-gold)', fontWeight: 500 }}>Suggested: {v.price} per session</div>
+                            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--text-secondary)' }}>Full Name</label>
+                            <input type="text" required placeholder="e.g. Ali Akbar" style={{ width: '100%', padding: '14px', borderRadius: '10px', border: '1px solid var(--border-color)', background: 'var(--bg-secondary)', color: 'var(--text-primary)', outline: 'none' }} />
+                          </div>
+                          <div>
+                            <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--text-secondary)' }}>Phone Number</label>
+                            <input type="tel" required placeholder="+91 XXXXX XXXXX" style={{ width: '100%', padding: '14px', borderRadius: '10px', border: '1px solid var(--border-color)', background: 'var(--bg-secondary)', color: 'var(--text-primary)', outline: 'none' }} />
+                          </div>
+                          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                            <div>
+                              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--text-secondary)' }}>Event Date</label>
+                              <input type="date" required value={eventDate} onChange={(e) => setEventDate(e.target.value)} style={{ width: '100%', padding: '14px', borderRadius: '10px', border: '1px solid var(--border-color)', background: 'var(--bg-secondary)', color: 'var(--text-primary)', outline: 'none' }} />
+                            </div>
+                            <div>
+                              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--text-secondary)' }}>Expected Guests</label>
+                              <input type="number" required placeholder="100" value={guestCount} onChange={(e) => setGuestCount(e.target.value)} style={{ width: '100%', padding: '14px', borderRadius: '10px', border: '1px solid var(--border-color)', background: 'var(--bg-secondary)', color: 'var(--text-primary)', outline: 'none' }} />
+                            </div>
+                          </div>
+                        </form>
+
+                        {/* Right Side: Live Summary Ticket */}
+                        <div style={{ background: 'var(--accent-green)', borderRadius: '16px', padding: '32px', color: '#fff', display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden' }}>
+                          <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '100px', height: '100px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)' }} />
+                          <div style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '24px', opacity: 0.8 }}>Reservation Summary</div>
+                          
+                          <div style={{ marginBottom: '20px' }}>
+                            <div style={{ fontSize: '11px', opacity: 0.7, marginBottom: '4px' }}>VENUE</div>
+                            <div style={{ fontSize: '18px', fontWeight: 600 }}>{selectedVenue || 'Not Selected'}</div>
+                          </div>
+
+                          <div style={{ marginBottom: '20px' }}>
+                            <div style={{ fontSize: '11px', opacity: 0.7, marginBottom: '4px' }}>EVENT TYPE</div>
+                            <div style={{ fontSize: '15px', fontWeight: 500 }}>{selectedType || 'Not Selected'}</div>
+                          </div>
+
+                          <div style={{ display: 'flex', gap: '32px', marginBottom: '32px' }}>
+                            <div>
+                              <div style={{ fontSize: '11px', opacity: 0.7, marginBottom: '4px' }}>DATE</div>
+                              <div style={{ fontSize: '14px', fontWeight: 500 }}>{eventDate || 'Pending'}</div>
+                            </div>
+                            <div>
+                              <div style={{ fontSize: '11px', opacity: 0.7, marginBottom: '4px' }}>GUESTS</div>
+                              <div style={{ fontSize: '14px', fontWeight: 500 }}>{guestCount || 'Pending'}</div>
+                            </div>
+                          </div>
+
+                          <div style={{ marginTop: 'auto', paddingTop: '20px', borderTop: '1px dashed rgba(255,255,255,0.3)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div style={{ fontSize: '12px', opacity: 0.8 }}>Status</div>
+                            <div style={{ fontSize: '13px', fontWeight: 600, background: 'rgba(255,255,255,0.2)', padding: '4px 12px', borderRadius: '50px' }}>Awaiting Confirmation</div>
                           </div>
                         </div>
-                      ))}
-                    </div>
-                  </div>
-                </>
-              )}
 
-              {step === 2 && (
-                <div style={{ padding: '20px 0' }}>
-                  <h4 style={{ fontSize: '18px', fontWeight: 600, marginBottom: '24px', color: 'var(--text-primary)' }}>Confirm Your Booking Details</h4>
-                  
-                  <div style={{ background: 'var(--bg-primary)', padding: '24px', borderRadius: '16px', border: '1px solid var(--border-color)', marginBottom: '24px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                      <div>
-                        <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Selected Venue</div>
-                        <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--accent-gold)' }}>{selectedVenue}</div>
-                      </div>
-                      <div>
-                        <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Event Type</div>
-                        <div style={{ fontSize: '15px', fontWeight: 600, color: 'var(--accent-gold)' }}>{selectedType}</div>
                       </div>
                     </div>
-                  </div>
-
-                  <form onSubmit={(e) => { e.preventDefault(); alert('Booking Request Sent Successfully!'); setIsModalOpen(false); setStep(1); setSelectedType(''); setSelectedVenue(''); }} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                      <div>
-                        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--text-secondary)' }}>Full Name</label>
-                        <input type="text" required style={{ width: '100%', padding: '14px', borderRadius: '10px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)', color: 'var(--text-primary)', outline: 'none' }} />
-                      </div>
-                      <div>
-                        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--text-secondary)' }}>Phone Number</label>
-                        <input type="tel" required style={{ width: '100%', padding: '14px', borderRadius: '10px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)', color: 'var(--text-primary)', outline: 'none' }} />
-                      </div>
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                       <div>
-                        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--text-secondary)' }}>Event Date</label>
-                        <input type="date" required style={{ width: '100%', padding: '14px', borderRadius: '10px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)', color: 'var(--text-primary)', outline: 'none' }} />
-                      </div>
-                      <div>
-                        <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, marginBottom: '6px', color: 'var(--text-secondary)' }}>Expected Guests</label>
-                        <input type="number" placeholder="100" required style={{ width: '100%', padding: '14px', borderRadius: '10px', border: '1px solid var(--border-color)', background: 'var(--bg-primary)', color: 'var(--text-primary)', outline: 'none' }} />
-                      </div>
-                    </div>
-
-                    <button type="submit" style={{ background: 'var(--accent-gold)', color: '#fff', padding: '16px', borderRadius: '10px', fontWeight: 600, fontSize: '15px', marginTop: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', border: 'none', cursor: 'pointer' }}>
-                      <CheckCircle2 size={18} /> Confirm Booking Request
-                    </button>
-                  </form>
+                  )}
                 </div>
-              )}
-            </div>
 
-            {/* Modal Footer Navigation */}
-            {step === 1 && (
-              <div style={{ padding: '20px 32px', borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'flex-end', background: 'var(--bg-primary)' }}>
-                <button onClick={() => setStep(2)} disabled={!selectedType || !selectedVenue} style={{
-                  background: (!selectedType || !selectedVenue) ? 'var(--border-color)' : 'var(--accent-green)', color: (!selectedType || !selectedVenue) ? 'var(--text-muted)' : '#fff',
-                  padding: '12px 32px', borderRadius: '50px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', border: 'none', cursor: (!selectedType || !selectedVenue) ? 'not-allowed' : 'pointer'
-                }}>
-                  Next Step <ArrowRight size={18} />
-                </button>
-              </div>
-            )}
-            {step === 2 && (
-              <div style={{ padding: '20px 32px', borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', background: 'var(--bg-primary)' }}>
-                <button onClick={() => setStep(1)} style={{ background: 'transparent', color: 'var(--text-secondary)', padding: '12px 24px', borderRadius: '50px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--border-color)', cursor: 'pointer' }}>
-                  <ArrowLeft size={18} /> Back
-                </button>
+                {/* Modal Footer Navigation */}
+                <div style={{ padding: '20px 32px', borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', background: 'var(--bg-primary)' }}>
+                  {step === 2 ? (
+                    <button onClick={() => setStep(1)} style={{ background: 'transparent', color: 'var(--text-secondary)', padding: '12px 24px', borderRadius: '50px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', border: '1px solid var(--border-color)', cursor: 'pointer' }}>
+                      <ArrowLeft size={18} /> Back
+                    </button>
+                  ) : <div />}
+
+                  {step === 1 ? (
+                    <button onClick={() => setStep(2)} disabled={!selectedType || !selectedVenue} style={{
+                      background: (!selectedType || !selectedVenue) ? 'var(--border-color)' : 'var(--accent-green)', color: (!selectedType || !selectedVenue) ? 'var(--text-muted)' : '#fff',
+                      padding: '12px 32px', borderRadius: '50px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', border: 'none', cursor: (!selectedType || !selectedVenue) ? 'not-allowed' : 'pointer'
+                    }}>
+                      Next Step <ArrowRight size={18} />
+                    </button>
+                  ) : (
+                    <button type="submit" form="bookingForm" style={{
+                      background: 'var(--accent-gold)', color: '#fff', padding: '12px 32px', borderRadius: '50px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px', border: 'none', cursor: 'pointer'
+                    }}>
+                      <CheckCircle2 size={18} /> Final Confirmation
+                    </button>
+                  )}
+                </div>
+              </>
+            ) : (
+              /* --- SUCCESS SCREEN AFTER CONFIRMATION --- */
+              <div style={{ padding: '60px 40px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(14, 122, 75, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px', color: 'var(--accent-green)' }}>
+                  <CheckCircle2 size={40} />
+                </div>
+                <h2 style={{ fontSize: '32px', fontFamily: 'var(--font-display)', color: 'var(--text-primary)', marginBottom: '12px' }}>Booking Confirmed!</h2>
+                <p style={{ color: 'var(--text-secondary)', maxWidth: '400px', marginBottom: '32px', lineHeight: 1.6 }}>
+                  Your reservation request for <strong>{selectedVenue}</strong> has been received successfully. Our team will contact you shortly to finalize the payments.
+                </p>
+                <div style={{ display: 'flex', gap: '16px' }}>
+                  <button onClick={closeModal} style={{ padding: '14px 32px', borderRadius: '50px', background: 'var(--accent-green)', color: '#fff', fontWeight: 600, border: 'none', cursor: 'pointer' }}>
+                    Done
+                  </button>
+                  <button style={{ padding: '14px 32px', borderRadius: '50px', background: 'transparent', color: 'var(--text-primary)', fontWeight: 600, border: '1px solid var(--border-color)', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <Download size={18} /> Download Receipt
+                  </button>
+                </div>
               </div>
             )}
 
