@@ -64,7 +64,6 @@ export default function VenueBooking() {
             transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
             transition: 'all 1s ease',
           }}>
-            {/* Table Header */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: '1fr 2fr 3fr 1fr',
@@ -80,7 +79,6 @@ export default function VenueBooking() {
               <div style={{ textAlign: 'right' }}>Access</div>
             </div>
 
-            {/* Event List */}
             {events.map((ev, i) => (
               <div 
                 key={i} 
@@ -103,12 +101,10 @@ export default function VenueBooking() {
                   e.currentTarget.style.paddingRight = '0px';
                 }}
               >
-                {/* Date */}
                 <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-primary)' }}>
                   {ev.date}
                 </div>
 
-                {/* Location & Venue with Image */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <div style={{
                     width: '80px', height: '56px', borderRadius: '8px',
@@ -119,6 +115,7 @@ export default function VenueBooking() {
                     <img 
                       src={ev.image} 
                       alt={ev.venue} 
+                      loading="lazy"
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
                     />
                   </div>
@@ -132,12 +129,10 @@ export default function VenueBooking() {
                   </div>
                 </div>
 
-                {/* Performance */}
                 <div style={{ fontSize: '14px', color: 'var(--text-secondary)', paddingRight: '20px' }}>
                   {ev.performance}
                 </div>
 
-                {/* Access Button */}
                 <div style={{ textAlign: 'right' }}>
                   <button 
                     onClick={() => ev.access !== 'SOLD OUT' && setSelectedEvent(ev)}
@@ -170,7 +165,6 @@ export default function VenueBooking() {
             ))}
           </div>
 
-          {/* Action Button */}
           <div style={{ marginTop: '50px', display: 'flex', justifyContent: 'center' }}>
             <button 
               onClick={() => setSelectedEvent(events[0])}
@@ -196,7 +190,6 @@ export default function VenueBooking() {
         </div>
       </section>
 
-      {/* BOOKING MODAL / POPUP */}
       {selectedEvent && (
         <div style={{
           position: 'fixed', inset: 0, zIndex: 9999,
@@ -219,7 +212,7 @@ export default function VenueBooking() {
                 background: 'var(--bg-tertiary)', borderRadius: '50%',
                 width: '36px', height: '36px', display: 'flex',
                 alignItems: 'center', justifyContent: 'center',
-                color: 'var(--text-primary)', transition: 'var(--transition)'
+                color: 'var(--text-primary)', transition: 'var(--transition)', border: 'none'
               }}
               onMouseEnter={e => e.currentTarget.style.background = 'var(--border-color)'}
               onMouseLeave={e => e.currentTarget.style.background = 'var(--bg-tertiary)'}

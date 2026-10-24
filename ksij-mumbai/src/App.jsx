@@ -8,10 +8,11 @@ import Heritage from './components/sections/Heritage';
 import Leadership from './components/sections/Leadership';
 import News from './components/sections/News';
 import Committees from './components/sections/Committees';
-import VenueShowcase from './components/sections/VenueShowcase'; // <-- New
+import VenueShowcase from './components/sections/VenueShowcase';
 import VenueBooking from './components/sections/VenueBooking';
 import Donate from './components/sections/Donate';
 import Contact from './components/sections/Contact';
+import ScrollToTop from './components/common/ScrollToTop';
 
 export default function App() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -28,7 +29,6 @@ export default function App() {
 
   return (
     <>
-      {/* SCROLL PROGRESS BAR */}
       <div style={{
         position: 'fixed', top: 0, left: 0,
         width: `${scrollProgress}%`, height: '3px',
@@ -45,12 +45,13 @@ export default function App() {
         <Leadership />
         <News />
         <Committees />
-        <VenueShowcase /> {/* <-- Added here */}
+        <VenueShowcase />
         <VenueBooking />
         <Donate />
         <Contact />
       </main>
       <Footer />
+      <ScrollToTop />
     </>
   );
 }

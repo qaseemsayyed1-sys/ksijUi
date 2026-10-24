@@ -13,7 +13,7 @@ export default function Donate() {
 
   return (
     <section id="donate" ref={ref} className="section" style={{
-      background: 'var(--accent-green)',
+      background: 'linear-gradient(135deg, #0e7a4b, #095c37)',
       position: 'relative',
       overflow: 'hidden',
       color: '#fff',
@@ -21,16 +21,10 @@ export default function Donate() {
       <div style={{
         position: 'absolute', top: '-100px', right: '-100px',
         width: '400px', height: '400px', borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(212,180,131,0.2), transparent 70%)',
+        background: 'radial-gradient(circle, rgba(255,255,255,0.1), transparent 70%)',
         pointerEvents: 'none',
       }} />
-      <div style={{
-        position: 'absolute', bottom: '-80px', left: '-80px',
-        width: '300px', height: '300px', borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(212,180,131,0.15), transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-
+      
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{
           textAlign: 'center',
@@ -43,13 +37,13 @@ export default function Donate() {
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
             padding: '8px 18px', borderRadius: '50px',
-            background: 'rgba(212,180,131,0.15)',
-            border: '1px solid rgba(212,180,131,0.4)',
+            background: 'rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.2)',
             fontSize: '12px', fontWeight: 600, letterSpacing: '0.1em',
-            textTransform: 'uppercase', color: '#d4b483',
+            textTransform: 'uppercase', color: '#fff',
             marginBottom: '24px',
           }}>
-            <Heart size={12} fill="#d4b483" /> Support The Mission
+            <Heart size={12} fill="#fff" /> Support The Mission
           </div>
 
           <h2 style={{
@@ -67,7 +61,7 @@ export default function Donate() {
           </p>
 
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Button variant="primary" href="#" style={{ background: '#d4b483', color: '#0f1419' }}>
+            <Button variant="primary" href="#" style={{ background: '#fff', color: '#0e7a4b' }}>
               Make a Donation <ArrowRight size={18} />
             </Button>
             <Button variant="outline" href="#" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.4)' }}>
@@ -94,11 +88,11 @@ export default function Donate() {
             }}>
               <div style={{
                 width: '44px', height: '44px', borderRadius: '12px',
-                background: 'rgba(212,180,131,0.2)',
+                background: 'rgba(255,255,255,0.15)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 flexShrink: 0,
               }}>
-                <p.icon size={20} color="#d4b483" />
+                <p.icon size={20} color="#fff" />
               </div>
               <div>
                 <div style={{ fontSize: '15px', fontWeight: 600, marginBottom: '4px' }}>{p.title}</div>

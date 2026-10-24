@@ -16,16 +16,10 @@ export default function Hero() {
       <div style={{
         position: 'absolute', top: '10%', right: '-10%',
         width: '600px', height: '600px', borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(184, 147, 90, 0.15) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(14, 122, 75, 0.15) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
-      <div style={{
-        position: 'absolute', bottom: '10%', left: '-15%',
-        width: '500px', height: '500px', borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(30, 58, 47, 0.1) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
-
+      
       <div className="container" style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
@@ -95,10 +89,10 @@ export default function Hero() {
             background: 'var(--bg-tertiary)', 
           }}>
             
-            {/* KARBALA / SHRINE IMAGE (Direct Web Link for immediate display) */}
             <img
-              src="https://images.unsplash.com/photo-1564507004663-b6dfb3c824d5?w=800&q=80"
-              alt="Holy Shrine"
+              src="/images/shrine.avif"
+              alt="Community shrine"
+              loading="eager"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
             

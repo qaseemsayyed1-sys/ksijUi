@@ -9,7 +9,7 @@ const links = [
   { label: 'Leadership', href: '#leadership' },
   { label: 'News', href: '#news' },
   { label: 'Committees', href: '#committees' },
-  { label: 'Venues', href: '#venues' }, // Added Venues Link
+  { label: 'Venues', href: '#venues' },
   { label: 'Contact', href: '#contact' },
 ];
 

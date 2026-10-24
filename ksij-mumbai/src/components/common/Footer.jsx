@@ -23,7 +23,7 @@ export default function Footer() {
 
           <div>
             <h4 style={{ fontSize: '15px', marginBottom: '16px', letterSpacing: '0.1em' }}>QUICK LINKS</h4>
-            {['Office Bearers', 'Projects & Bookings', 'Committees', 'News & Updates'].map(l => (
+            {['About Us', 'Leadership', 'Committees', 'News & Updates'].map(l => (
               <a key={l} href="#" style={{
                 display: 'block', color: 'var(--text-secondary)',
                 fontSize: '14px', padding: '6px 0', transition: 'var(--transition)',
@@ -36,7 +36,7 @@ export default function Footer() {
 
           <div>
             <h4 style={{ fontSize: '15px', marginBottom: '16px', letterSpacing: '0.1em' }}>GET INVOLVED</h4>
-            {['Make Donation', 'Lifetime Membership', 'Qaumi Sahayak', 'Volunteer'].map(l => (
+            {['Donate', 'Membership', 'Volunteer', 'Qaumi Sahayak'].map(l => (
               <a key={l} href="#" style={{
                 display: 'block', color: 'var(--text-secondary)',
                 fontSize: '14px', padding: '6px 0', transition: 'var(--transition)',
@@ -51,7 +51,7 @@ export default function Footer() {
             <h4 style={{ fontSize: '15px', marginBottom: '16px', letterSpacing: '0.1em' }}>CONTACT</h4>
             <div style={{ display: 'flex', gap: '10px', color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '12px' }}>
               <MapPin size={18} style={{ flexShrink: 0, color: 'var(--accent-gold)' }} />
-              <span>66/70, Hazrat Abbas (a.s.) Street, Dongri, Mumbai, Maharashtra, India 400 009</span>
+              <span>66/70, Hazrat Abbas (a.s.) Street, Dongri, Mumbai 400 009</span>
             </div>
             <div style={{ display: 'flex', gap: '10px', color: 'var(--text-secondary)', fontSize: '14px', marginBottom: '12px' }}>
               <Mail size={18} style={{ color: 'var(--accent-gold)' }} /> info@ksijmumbai.org
