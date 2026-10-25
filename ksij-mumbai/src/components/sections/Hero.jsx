@@ -11,20 +11,19 @@ export default function Hero() {
       display: 'flex', flexDirection: 'column',
       alignItems: 'center', justifyContent: 'center',
       position: 'relative', overflow: 'hidden',
-      background: '#0a120e', // Dark Green/Black background
+      background: '#0a120e',
       textAlign: 'center',
       padding: '40px 20px',
     }}>
       
-      {/* Background Image with Dark Overlay */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 0,
-        opacity: 0.3,
+        opacity: 0.4,
       }}>
         <img 
-          src="https://images.unsplash.com/photo-1564507004663-b6dfb3c824d5?q=80&w=1920&auto=format&fit=crop" 
-          alt="Background" 
-          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          src="/images/shrine.jpg" 
+          alt="Shrine Background" 
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center' }}
         />
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #0a120e 10%, transparent 100%)' }} />
       </div>
@@ -37,7 +36,6 @@ export default function Hero() {
         display: 'flex', flexDirection: 'column', alignItems: 'center',
       }}>
         
-        {/* CENTER LOGO BOX (As requested in reference) */}
         <div style={{
           width: '120px', height: '120px',
           background: 'var(--bg-secondary)',
