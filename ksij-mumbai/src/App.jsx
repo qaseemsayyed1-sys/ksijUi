@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import TopBanners from './components/common/TopBanners'; // <-- Yeh check karein
+import TopBanners from './components/common/TopBanners';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import Hero from './components/sections/Hero';
@@ -9,6 +9,9 @@ import Heritage from './components/sections/Heritage';
 import Leadership from './components/sections/Leadership';
 import News from './components/sections/News';
 import Committees from './components/sections/Committees';
+import CentersMasjids from './components/sections/CentersMasjids'; // <-- Naya
+import YouthProjects from './components/sections/YouthProjects'; // <-- Naya
+import Obituaries from './components/sections/Obituaries'; // <-- Naya
 import VenueShowcase from './components/sections/VenueShowcase';
 import VenueBooking from './components/sections/VenueBooking';
 import Donate from './components/sections/Donate';
@@ -37,7 +40,7 @@ export default function App() {
         zIndex: 9999, transition: 'width 0.1s ease-out',
       }} />
 
-      <TopBanners /> {/* <-- YEH SABSE ZAROORI HAI */}
+      <TopBanners />
       <Navbar />
 
       <main>
@@ -48,6 +51,9 @@ export default function App() {
         <Leadership />
         <News />
         <Committees />
+        <CentersMasjids />   {/* <-- Add kiya */}
+        <YouthProjects />    {/* <-- Add kiya */}
+        <Obituaries />       {/* <-- Add kiya */}
         <VenueShowcase />
         <VenueBooking />
         <Donate />
