@@ -1,4 +1,4 @@
-import { ArrowRight, Star } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import Button from '../common/Button';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
@@ -7,125 +7,90 @@ export default function Hero() {
 
   return (
     <section id="home" ref={ref} style={{
-      minHeight: '100vh',
-      display: 'flex', alignItems: 'center',
+      minHeight: '85vh',
+      display: 'flex', flexDirection: 'column',
+      alignItems: 'center', justifyContent: 'center',
       position: 'relative', overflow: 'hidden',
-      paddingTop: '100px',
-      background: 'var(--bg-primary)',
+      background: '#0a120e', // Dark Green/Black background
+      textAlign: 'center',
+      padding: '40px 20px',
     }}>
-      <div style={{
-        position: 'absolute', top: '10%', right: '-10%',
-        width: '600px', height: '600px', borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(14, 122, 75, 0.15) 0%, transparent 70%)',
-        pointerEvents: 'none',
-      }} />
       
-      <div className="container" style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-        gap: '60px', alignItems: 'center',
-        position: 'relative', zIndex: 1,
+      {/* Background Image with Dark Overlay */}
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 0,
+        opacity: 0.3,
       }}>
+        <img 
+          src="https://images.unsplash.com/photo-1564507004663-b6dfb3c824d5?q=80&w=1920&auto=format&fit=crop" 
+          alt="Background" 
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #0a120e 10%, transparent 100%)' }} />
+      </div>
+
+      <div style={{
+        position: 'relative', zIndex: 1,
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+        transition: 'all 1s ease',
+        display: 'flex', flexDirection: 'column', alignItems: 'center',
+      }}>
+        
+        {/* CENTER LOGO BOX (As requested in reference) */}
         <div style={{
-          opacity: isVisible ? 1 : 0,
-          transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-          transition: 'all 1s ease',
+          width: '120px', height: '120px',
+          background: 'var(--bg-secondary)',
+          borderRadius: '16px',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          marginBottom: '32px',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
+          padding: '16px',
+          border: '1px solid rgba(255,255,255,0.1)'
         }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: '8px',
-            padding: '8px 18px', borderRadius: '50px',
-            background: 'var(--bg-tertiary)',
-            border: '1px solid var(--border-color)',
-            fontSize: '12px', fontWeight: 600, letterSpacing: '0.1em',
-            textTransform: 'uppercase', color: 'var(--accent-gold)',
-            marginBottom: '28px',
-          }}>
-            <Star size={12} fill="var(--accent-gold)" /> Since 1899
-          </div>
-
-          <h1 style={{
-            fontSize: 'clamp(40px, 6vw, 78px)',
-            lineHeight: 1.05, marginBottom: '28px',
-            fontWeight: 600,
-          }}>
-            A Century of{' '}
-            <span style={{
-              background: 'linear-gradient(135deg, var(--accent-gold), var(--accent-gold-dark))',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              fontStyle: 'italic',
-            }}>Faith, Unity</span>{' '}
-            & Service.
-          </h1>
-
-          <p style={{
-            fontSize: '18px', color: 'var(--text-secondary)',
-            lineHeight: 1.8, marginBottom: '40px',
-            maxWidth: '540px',
-          }}>
-            For over 125 years, KSIJ Mumbai has nurtured a vibrant community rooted in the teachings of the Ahlul Bayt (a.s) — serving with compassion, preserving heritage, and empowering generations.
-          </p>
-
-          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-            <Button variant="primary" href="#donate">
-              Support Our Mission <ArrowRight size={18} />
-            </Button>
-            <Button variant="outline" href="#heritage">
-              Explore Our Story
-            </Button>
-          </div>
+          <img 
+            src="/images/logo.png" 
+            alt="KSIJ Logo" 
+            style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+          />
         </div>
 
         <div style={{
-          position: 'relative',
-          opacity: isVisible ? 1 : 0,
-          transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-          transition: 'all 1s ease 0.3s',
+          fontSize: '13px', letterSpacing: '0.3em',
+          color: 'var(--accent-gold-light)', fontWeight: 600,
+          textTransform: 'uppercase', marginBottom: '16px',
         }}>
-          <div style={{
-            position: 'relative', borderRadius: '20px',
-            overflow: 'hidden', boxShadow: 'var(--shadow-lg)',
-            aspectRatio: '4/5',
-            background: 'var(--bg-tertiary)', 
-          }}>
-            
-            {/* AUTO-FETCHED IMAGE */}
-            <img
-              src="https://images.unsplash.com/photo-1564507004663-b6dfb3c824d5?q=80&w=1000&auto=format&fit=crop"
-              alt="Community shrine"
-              loading="eager"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
-            
-            <div style={{
-              position: 'absolute', inset: 0,
-              background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent 70%)',
-            }} />
-            <div style={{
-              position: 'absolute', bottom: '24px', left: '24px', right: '24px',
-              color: '#fff',
-            }}>
-              <div style={{ fontSize: '12px', letterSpacing: '0.2em', opacity: 0.9, marginBottom: '4px' }}>
-                ESTABLISHED
-              </div>
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: '42px', fontWeight: 700, lineHeight: 1 }}>
-                1899
-              </div>
-            </div>
-          </div>
-
-          <div style={{
-            position: 'absolute', bottom: '40px', left: '-20px',
-            background: 'var(--bg-secondary)',
-            padding: '16px 20px', borderRadius: '16px',
-            boxShadow: 'var(--shadow-md)',
-            border: '1px solid var(--border-color)',
-            animation: 'float 6s ease-in-out infinite',
-          }}>
-            <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginBottom: '4px' }}>Community Members</div>
-            <div style={{ fontSize: '24px', fontWeight: 700, color: 'var(--accent-gold)' }}>5,000+</div>
-          </div>
+          KSIJ · MUMBAI
         </div>
+
+        <h1 style={{
+          fontSize: 'clamp(36px, 5vw, 64px)',
+          lineHeight: 1.1, marginBottom: '24px',
+          color: '#fff', fontWeight: 600,
+          fontFamily: 'var(--font-display)',
+          maxWidth: '800px',
+        }}>
+          Khoja Shia Ithna Asheri <br />
+          <span style={{ fontStyle: 'italic' }}>Jamaat, Mumbai.</span>
+        </h1>
+
+        <p style={{
+          fontSize: '18px', color: 'rgba(255,255,255,0.7)',
+          lineHeight: 1.6, marginBottom: '40px',
+          maxWidth: '600px',
+        }}>
+          Projects, bookings and donations for our community. Serving with compassion, preserving heritage, and empowering generations.
+        </p>
+
+        <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <Button variant="primary" href="#venues" style={{ background: '#fff', color: '#0a120e' }}>
+            Explore Venues <ArrowRight size={18} />
+          </Button>
+          <Button variant="outline" href="#heritage" style={{ color: '#fff', borderColor: 'rgba(255,255,255,0.3)' }}>
+            Our Heritage
+          </Button>
+        </div>
+
       </div>
     </section>
   );
