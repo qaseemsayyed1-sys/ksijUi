@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import TopBanners from './components/common/TopBanners'; // <-- Naya import
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import Hero from './components/sections/Hero';
@@ -36,7 +37,12 @@ export default function App() {
         zIndex: 9999, transition: 'width 0.1s ease-out',
       }} />
 
+      {/* Banners TOP par lagayenge */}
+      <TopBanners />
+      
+      {/* Navbar ab banners ke neeche aayega */}
       <Navbar />
+
       <main>
         <Hero />
         <Stats />
