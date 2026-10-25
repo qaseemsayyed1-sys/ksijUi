@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import TopBanners from './components/common/TopBanners'; // <-- Naya import
+import TopBanners from './components/common/Topbanners'; // <-- Naya import
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import Hero from './components/sections/Hero';
