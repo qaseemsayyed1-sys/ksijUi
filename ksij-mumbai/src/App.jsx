@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import TopBanners from './components/common/Topbanners'; // <-- Naya import
+import TopBanners from './components/common/TopBanners'; // <-- Yeh check karein
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
 import Hero from './components/sections/Hero';
@@ -37,10 +37,7 @@ export default function App() {
         zIndex: 9999, transition: 'width 0.1s ease-out',
       }} />
 
-      {/* Banners TOP par lagayenge */}
-      <TopBanners />
-      
-      {/* Navbar ab banners ke neeche aayega */}
+      <TopBanners /> {/* <-- YEH SABSE ZAROORI HAI */}
       <Navbar />
 
       <main>
